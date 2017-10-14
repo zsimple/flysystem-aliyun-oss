@@ -1,0 +1,35 @@
+{
+    "name": "zsimple/flysystem-aliyun-oss",
+    "description": "Flysystem adapter for the Aliyun OSS SDK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xishui",
+            "email": "eyehere@sina.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "league/flysystem": "^1.0.40",
+        "aliyuncs/oss-sdk-php": "~2.2.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^2.0.0",
+        "henrikbjorn/phpspec-code-coverage" : "~1.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zsimple\\Flysystem\\AliyunOss\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Zsimple\\Flysystem\\AliyunOss\\ServiceProvider"
+            ],
+        }
+    }
+}
