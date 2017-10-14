@@ -29,7 +29,7 @@
         "laravel": {
             "providers": [
                 "Zsimple\\Flysystem\\AliyunOss\\ServiceProvider"
-            ],
+            ]
         }
     }
 }
