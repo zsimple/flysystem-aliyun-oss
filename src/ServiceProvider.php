@@ -4,14 +4,14 @@ namespace Zsimple\Flysystem\AliyunOss;
 use Storage;
 use OSS\OssClient;
 use League\Flysystem\Filesystem;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Aliyun Oss ServiceProvider class.
  *
- * @author  xishui <eyehere@sina.com>
+ * @author  ApolloPY <ApolloPY@Gmail.com>
  */
-class ServiceProvider extends BaseServiceProvider
+class AliyunOssServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -30,9 +30,8 @@ class ServiceProvider extends BaseServiceProvider
                 $prefix = $config['prefix'];
             }
             $client = new OssClient($accessId, $accessKey, $endPoint);
-            $adapter = new AliyunOssAdapter($client, $bucket, $prefix);
+            $adapter = new AliyunOssAdapter($client, $bucket, $prefix, $config);
             $filesystem = new Filesystem($adapter);
-
             return $filesystem;
         });
     }
