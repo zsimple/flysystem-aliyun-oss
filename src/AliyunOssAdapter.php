@@ -504,9 +504,22 @@ class AliyunOssAdapter extends AbstractAdapter implements CanOverwriteFiles
      */
     public function updateStream($path, $resource, Config $config)
     {
-        // TODO
-        // OssClient 只有 uploadFile，不能直接传入Stream Resource ,只能读取了
-        return $this->upload($path, stream_get_contents($resource), $config);
+        $object = $this->applyPathPrefix($path);
+        $options = $this->getOptionsFromConfig($config);
+
+        if ($visibility = $config->get('visibility')) {
+            $options[OssClient::OSS_HEADERS] = [
+                OssClient::OSS_OBJECT_ACL => $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'public-read' : 'private',
+            ];
+        }
+
+        try {
+            $this->client->uploadFile($this->bucket, $object, stream_get_meta_data($resource)['uri'], $options);
+        } catch (OssException $e) {
+            return false;
+        }
+
+        return $this->normalizeResponse($options, $object);
     }
 
     /**
